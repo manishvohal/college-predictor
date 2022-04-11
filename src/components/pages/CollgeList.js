@@ -1,8 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
 import "./styles/styles.css";
+import * as React from "react";
 
 function CollegeList() {
+  const [Ratio, setRatio] = React.useState(10);
+  const handleRatio = (e) => {
+    setRatio(e.target.value);
+  };
+
+  const [AvgCost, setAvgCost] = React.useState(20000);
+  const handleAvgCost = (e) => {
+    setAvgCost(e.target.value);
+  };
+
   const [colleges, setColleges] = useState(null);
 
   const params = {
@@ -40,6 +51,24 @@ function CollegeList() {
   console.log(colleges);
   return (
     <div className="CollegeList">
+      <label className="label">Teacher-Student Ratio:</label>
+      <input
+        onChange={handleRatio}
+        className="input"
+        value={Ratio}
+        type="number"
+      />
+
+      <label className="label">
+        Average Net Cost For Attendance (Less Than):
+      </label>
+      <input
+        onChange={handleAvgCost}
+        className="input"
+        value={AvgCost}
+        type="number"
+      />
+
       <div>
         <button className="fetch-button" onClick={fetchData}>
           Load Data
@@ -48,8 +77,8 @@ function CollegeList() {
           {colleges &&
             colleges.map((college, index) => {
               if (
-                college.averageNetCost > 20000 &&
-                college.studentFacultyRatio < 10
+                college.studentFacultyRatio > Ratio &&
+                college.averageNetCost < AvgCost
               ) {
                 return (
                   <div className="college" key={index}>
@@ -60,7 +89,9 @@ function CollegeList() {
                       <div className="details">
                         <p>{college.shortDescription}</p>
                         <p>{college.fundingType}</p>
+                        <p>{college.averageNetCost}</p>
                         <p>{college.studentFacultyRatio}</p>
+                        <p>{Ratio}</p>
                       </div>
                     </div>
                   </div>
