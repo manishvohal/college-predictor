@@ -11,6 +11,7 @@
 // export default SignUp;
 import { useState } from "react";
 import "./styles/signup.css";
+import loginImg from "./images/login.png";
 
 export default function Signup() {
   // States for registration
@@ -81,6 +82,9 @@ export default function Signup() {
 
   return (
     <div className="form">
+      <div className="image">
+        <img src={loginImg} />
+      </div>
       <div>
         <h1>User Registration</h1>
       </div>
